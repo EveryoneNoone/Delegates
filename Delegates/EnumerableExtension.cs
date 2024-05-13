@@ -4,12 +4,12 @@ namespace Delegates
 {
     internal static class EnumerableExtension
     {
-        public static T GetMax<T>(this IEnumerable collection, Func<T, float> convertToNumber) where T : class
+        public static T? GetMax<T>(this IEnumerable collection, Func<T, float> convertToNumber) where T : class
         {
             ArgumentNullException.ThrowIfNull(collection);
             ArgumentNullException.ThrowIfNull(convertToNumber);
 
-            T maxNum = null;
+            T? maxNum = null;
             var num = float.MinValue;
             
             foreach(T item in collection)

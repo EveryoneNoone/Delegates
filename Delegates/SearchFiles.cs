@@ -8,7 +8,7 @@ namespace Delegates
 {
     internal class SearchFiles
     {
-        public event EventHandler<FileArgs> FileFound;
+        public event EventHandler<FileArgs>? FileFound;
 
         public bool CancelSearch { get; set; }
 
@@ -16,15 +16,7 @@ namespace Delegates
         {
             CancelSearch = true;
         }
-
-        protected virtual void FileFoundEvent(FileArgs args)
-        {
-            EventHandler<FileArgs> handler = FileFound;
-            if (handler != null) 
-            {
-                handler(this, args);
-            }
-        }
+        
         public void Searching(string directoryPath)
         {
             if(string.IsNullOrEmpty(directoryPath) || !Directory.Exists(directoryPath))
@@ -37,7 +29,7 @@ namespace Delegates
             {
                 if (File.Exists(file))
                 {
-                    FileFoundEvent(new FileArgs(file));
+                    FileFound?.Invoke(file, new FileArgs(file));
                 }
                 if (CancelSearch) break;
             }
